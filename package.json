@@ -1,0 +1,17 @@
+{
+  "name": "picut",
+  "version": "1.0.0",
+  "description": "picture cutter, a psd to html+css tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+      "photoshop": "*"
+  },
+  "keywords": [
+    "photoshop"
+  ],
+  "author": "liyinan",
+  "license": "MIT"
+}
