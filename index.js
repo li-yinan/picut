@@ -1,8 +1,27 @@
+/**
+ * ps切图工具
+ * 
+ * @author liyinan
+ * @version 1.0
+ * @date 2016-06-23
+ */
 var ps = require('photoshop');
 var fs = require('fs');
 
-function process(){
+/**
+ * 重要重要重要！！！这个函数一定不要引用函数外的东西，
+ * 因为这个函数要被stringify然后以字符串的方式传入photoshop，
+ * 引用函数外的东西会导致执行失败
+ *
+ * @return {Array.<Object>} 每个图层的数据内容
+ */
+function processPs(path){
 
+    /**
+     * 生成唯一id
+     *
+     * @return {string}
+     */
     var uuid = (function () {
         var cnt = 0;
         return function () {
@@ -10,6 +29,13 @@ function process(){
         }
     })();
 
+    /**
+     * 遍历图层
+     *
+     * @param {Array.<ArtLayer>} layers 图层数组
+     * @param {function} callback 回调函数，每次找到一个图层就回调一次
+     *
+     */
     function walk(layers, callback) {
         layers = layers || [];
         for (var i = 0; i < layers.length; i++) {
@@ -21,6 +47,13 @@ function process(){
         }
     }
 
+    /**
+     * 把图层保存成png
+     *
+     * @param {ArtLayer} layer 图层
+     * @param {string} path 文件存储路径
+     *
+     */
     function saveFileToPng(layer, path) {
         // 使用原始psd的大小新建画布
         // 为什么不按照当前layer大小建立画布？
@@ -86,7 +119,7 @@ function process(){
             layerObj.type = 'TEXT';
         }
         else {
-            saveFileToPng(layer, '/Users/liyinan/code/li-yinan/test/img/' + uid);
+            saveFileToPng(layer, path + 'public/img/' + uid);
         }
         // 把当前层切成图片
         console.log(layerObj);
@@ -101,7 +134,7 @@ var startTime = +new Date();
 console.log(`start time: ${startTime}`);
 
 // 把js放到ps里处理
-ps.invoke(process, function(error, result){
+ps.invoke(processPs, [process.cwd() + '/'], function(error, result){
     var endTime = +new Date();
     console.log(`end time: ${endTime}`);
     console.log(`cost: ${endTime - startTime}`);
@@ -111,7 +144,7 @@ ps.invoke(process, function(error, result){
         });
     `;
     // 生成的数据导出成amd模块给页面使用
-    fs.writeFile('/Users/liyinan/code/li-yinan/test/src/data.js', wrapAMD, function () {
+    fs.writeFile('public/src/data.js', wrapAMD, function () {
         console.log('ok');
     });
 })

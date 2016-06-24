@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base target="_blank"/>
+    <title>picut</title>
+    <script src="./esl.js"></script>
+    <script>
+        require.config({
+            'baseUrl': 'src'
+        });
+    </script>
+    <style>
+        html,
+        body {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+<body>
+    <script>
+        require(['main', 'data'], function (main, data) {
+          main.init(data);
+        });
+    </script>
+</body>
+</html>
