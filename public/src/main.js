@@ -1,8 +1,10 @@
 define(function (require) {
     var exports = {};
     var ratio = 2;
+    var layout = require('./layout');
 
     exports.init = function (data) {
+        layout.init(data);
         data.reverse();
         for (var i = 0; i < data.length; i++) {
             var d = data[i];
@@ -11,6 +13,7 @@ define(function (require) {
             style.position = 'absolute';
             style.top = d.top / ratio + 'px';
             style.left = d.left / ratio + 'px';
+            el.id = d.uuid;
             el.setAttribute('title', d.name);
             if (d.type === 'TEXT') {
                 // 文字就不设置宽度和高度了
@@ -26,7 +29,7 @@ define(function (require) {
                 style.backgroundSize = '100%';
             }
             style.overflow = 'hidden';
-            // style.border = 'solid 1px #888';
+            style.border = 'solid 1px #888';
             document.body.appendChild(el);
         }
     }
