@@ -128,6 +128,8 @@ define(function (require) {
         });
 
         child.forEach(function (item) {
+            // 子图层保存父图层的信息
+            item.parentInfo = layer;
             // 计算相对坐标
             item.relativeLeft = item.left - layer.left; 
             item.relativeTop = item.top - layer.top; 
@@ -146,7 +148,7 @@ define(function (require) {
         sortLayersByArea(data);
         var root = buildTree(data);
         calRelativePosition(root);
-        console.log(root);
+        // console.log(root);
         return root;
     };
 

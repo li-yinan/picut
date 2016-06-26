@@ -105,6 +105,7 @@ function processPs(path){
             top: layer.bounds[1],
             width: (layer.bounds[2]-layer.bounds[0]),
             height: (layer.bounds[3]-layer.bounds[1]),
+            opacity: layer.opacity,
             name: layer.name,
             type: layer.typename
         };
@@ -119,6 +120,7 @@ function processPs(path){
             layerObj.type = 'TEXT';
         }
         else {
+            layerObj.hasBackground = true;
             saveFileToPng(layer, path + 'public/img/' + uid);
         }
         // 把当前层切成图片

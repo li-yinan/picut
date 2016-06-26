@@ -1,6 +1,6 @@
 define(function (require) {
     var exports = {};
-    var ratio = 2;
+    var ratio = require('./config').ratio;
 
     /**
      * 通过图层数据生成dom
@@ -11,12 +11,15 @@ define(function (require) {
      */
     function createDom (data) {
         var el = document.createElement('div');
+        el.layerInfo = data;
         var style = el.style;
         style.position = 'absolute';
         style.top = data.relativeTop / ratio + 'px';
         style.left = data.relativeLeft / ratio + 'px';
+        style.opacity = data.opacity / 100;
         el.id = data.uuid;
         el.setAttribute('title', data.name);
+        el.className = 'ps-layer';
         if (data.type === 'TEXT') {
             // 文字就不设置宽度和高度了
             el.innerHTML = data.text;
