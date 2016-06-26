@@ -37,8 +37,14 @@ define(function (require) {
                     <p>上边距: ${info.relativeTop / ratio}</p>
                     <p>宽度 : ${info.width / ratio}</p>
                     <p>高度 : ${info.height / ratio}</p>
-                    <p>父元素宽度 : ${info.parentInfo.width / ratio}</p>
-                    <p>父元素高度 : ${info.parentInfo.height / ratio}</p>
+                `;
+                if (info.parentInfo) {
+                    infoStr += `
+                        <p>父元素宽度 : ${info.parentInfo.width / ratio}</p>
+                        <p>父元素高度 : ${info.parentInfo.height / ratio}</p>
+                    `;
+                }
+                infoStr += `
                     <p>透明度: ${info.opacity}%</p>
                 `;
                 if (info.type === 'TEXT') {
