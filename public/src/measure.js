@@ -1,8 +1,10 @@
 define(function (require) {
     var exports = {};
-    var ratio = require('./config').ratio;
     var measureEl = null;
     var lastEl = null;
+    var util = require('util');
+    var scale = util.scale;
+
 
     function setHighLight(el) {
         if (!el) {
@@ -33,27 +35,28 @@ define(function (require) {
                 var infoStr = `
                     <p>id: ${info.uuid}<\p>
                     <p>名称: ${info.name}<\p>
-                    <p>左边距: ${info.relativeLeft / ratio}<\p>
-                    <p>上边距: ${info.relativeTop / ratio}</p>
-                    <p>宽度 : ${info.width / ratio}</p>
-                    <p>高度 : ${info.height / ratio}</p>
+                    <p>左边距: ${scale(info.relativeLeft)}<\p>
+                    <p>上边距: ${scale(info.relativeTop)}</p>
+                    <p>宽度 : ${scale(info.width)}</p>
+                    <p>高度 : ${scale(info.height)}</p>
                 `;
                 if (info.parentInfo) {
                     infoStr += `
-                        <p>父元素宽度 : ${info.parentInfo.width / ratio}</p>
-                        <p>父元素高度 : ${info.parentInfo.height / ratio}</p>
+                        <p>父元素宽度 : ${scale(info.parentInfo.width)}</p>
+                        <p>父元素高度 : ${scale(info.parentInfo.height)}</p>
                     `;
                 }
                 infoStr += `
                     <p>透明度: ${info.opacity}%</p>
                 `;
-                if (info.type === 'TEXT') {
+                // if (info.type === 'TEXT') {
                     infoStr += `
                         <p>颜色: ${info.color}<\p>
                         <p>字体: ${info.fontFamily}<\p>
-                        <p>字号: ${info.fontSize / ratio}<\p>
+                        <p>字号: ${scale(info.fontSize)}<\p>
+                        <p>行高: ${scale(info.lineHeight)}<\p>
                     `;
-                }
+                // }
                 if (info.hasBackground) {
                     infoStr += `
                         <a target="_blank" href="img/${info.uuid}.png">点击在新窗口打开背景图片</a>

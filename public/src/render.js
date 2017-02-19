@@ -1,6 +1,7 @@
 define(function (require) {
     var exports = {};
-    var ratio = require('./config').ratio;
+    var util = require('util');
+    var scale = util.scale;
 
     /**
      * 通过图层数据生成dom
@@ -14,8 +15,8 @@ define(function (require) {
         el.layerInfo = data;
         var style = el.style;
         style.position = 'absolute';
-        style.top = data.relativeTop / ratio + 'px';
-        style.left = data.relativeLeft / ratio + 'px';
+        style.top = scale(data.relativeTop) + 'px';
+        style.left = scale(data.relativeLeft) + 'px';
         style.opacity = data.opacity / 100;
         el.id = data.uuid;
         el.setAttribute('title', data.name);
@@ -23,13 +24,21 @@ define(function (require) {
         if (data.type === 'TEXT') {
             // 文字就不设置宽度和高度了
             el.innerHTML = data.text;
-            style.fontSize = data.fontSize / ratio + 'px';
+            style.fontSize = scale(data.fontSize) + 'px';
             style.color = data.color;
-            style.lineHeight = data.fontSize / ratio + 'px';
+            // style.lineHeight = scale(data.leading) + 'px';
+            style.lineHeight = scale(data.fontSize) + 'px';
         }
         else {
-            style.width = data.width / ratio + 'px';
-            style.height = data.height / ratio + 'px';
+            if (data.text) {
+                el.innerHTML = data.text;
+                style.fontSize = scale(data.fontSize) + 'px';
+                style.color = data.color;
+                style.lineHeight = scale(data.leading) + 'px';
+                // style.lineHeight = scale(data.fontSize) + 'px';
+            }
+            style.width = scale(data.width) + 'px';
+            style.height = scale(data.height) + 'px';
             style.background = `url(img/${data.uuid}.png) no-repeat`;
             style.backgroundSize = '100%';
         }

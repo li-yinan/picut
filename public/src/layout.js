@@ -1,6 +1,9 @@
 define(function (require) {
     var exports = {};
 
+    // 计算包含时的容宽，因为好多元素压边或者包围体和字体差一像素导致计算包含失败，不能正确的确定元素间的关系，所以增加容宽，让包含计算更准确
+    var tolerance = 3;
+
     /**
      * b 是否在a 内部
      *
@@ -20,13 +23,13 @@ define(function (require) {
     function isInside(a, b) {
         if (
             // 检测左边
-            a.left < b.left 
+            a.left - tolerance  < b.left 
             // 检测上边
-            && a.top < b.top
+            && a.top - tolerance < b.top
             // 检测右边
-            && a.left + a.width > b.left + b.width
+            && a.left + a.width + tolerance > b.left + b.width
             // 检测下边
-            && a.top + a.height > b.top + b.height
+            && a.top + a.height + tolerance > b.top + b.height
             ) {
             return true;
         }
