@@ -7,7 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-      "photoshop": "*"
+    "babel": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "photoshop": "*",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^2.2.1"
   },
   "keywords": [
     "photoshop"
